@@ -1,15 +1,21 @@
 # EBT Agent Skills
 
-[![PSA](https://img.shields.io/badge/PSA-Read%20Before%20Installing-critical?style=for-the-badge)](#safety-psa)
-> **Safety PSA:** Review each skill's `SKILL.md` before installing. Skills are used at your own risk.
+[![Read Before Installing](https://img.shields.io/badge/READ%20BEFORE-INSTALLING-critical?style=for-the-badge)](#safety-notice)
+> **Safety Notice:** Review each skill's `SKILL.md` before installing. Skills are used at your own risk because they can direct an agent to run commands, edit files, and interact with external tools. A quick review helps you confirm the behavior matches your intent and security expectations.
 
 A collection of portable agent skills that work across Claude Code, Cursor, Codex CLI, and Gemini CLI.
 
 Skills are self-contained directories with a `SKILL.md` file that teaches coding agents how to perform specific tasks. They follow the [Agent Skills open standard](https://agentskills.io), so you write them once and use them everywhere.
 
-## Safety PSA
+## Safety Notice
 
-Review each skill's `SKILL.md` before installing. Skills are used at your own risk.
+Review each skill's `SKILL.md` before installing. Skills are used at your own risk because they can change how agents behave in your environment.
+
+Before installing, confirm:
+- What commands or tools the skill may invoke
+- What files or directories it can affect
+- Whether it relies on external services, network access, or third-party content
+- Whether the scope and permissions are acceptable for your project
 
 ## Skills
 
