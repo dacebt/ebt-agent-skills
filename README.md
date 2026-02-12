@@ -10,6 +10,7 @@ Skills are self-contained directories with a `SKILL.md` file that teaches coding
 |---|---|
 | **cleanup-review** | Structural code review for redundancy, dead code, and convention violations. Read-only by default. |
 | **subagent-collab** | Delegate subtasks to other coding agents (Claude Code, Codex, Cursor) via CLI subprocesses. |
+| **release-notes** | Generate release notes from git history. Produces a technical changelog with commit references and a user-facing changelog in plain language. |
 
 ## Installation
 
@@ -27,6 +28,7 @@ git clone https://github.com/YOUR_USERNAME/skills.git /tmp/agent-skills
 # Copy individual skills
 cp -r /tmp/agent-skills/skills/cleanup-review ~/.claude/skills/cleanup-review
 cp -r /tmp/agent-skills/skills/subagent-collab ~/.claude/skills/subagent-collab
+cp -r /tmp/agent-skills/skills/release-notes ~/.claude/skills/release-notes
 ```
 
 **Project install (scoped to one repo):**
@@ -36,9 +38,10 @@ mkdir -p .claude/skills
 
 cp -r /path/to/skills/cleanup-review .claude/skills/cleanup-review
 cp -r /path/to/skills/subagent-collab .claude/skills/subagent-collab
+cp -r /path/to/skills/release-notes .claude/skills/release-notes
 ```
 
-Skills are available immediately. Claude auto-discovers them and can invoke via `/cleanup-review` or `/subagent-collab`, or load them automatically when relevant.
+Skills are available immediately. Claude auto-discovers them and can invoke via `/cleanup-review`, `/subagent-collab`, or `/release-notes`, or load them automatically when relevant.
 
 Docs: [Claude Code Skills](https://code.claude.com/docs/en/skills)
 
@@ -52,6 +55,7 @@ Cursor discovers skills from `~/.cursor/skills/` (global) and `.cursor/skills/` 
 ```bash
 cp -r /path/to/skills/cleanup-review ~/.cursor/skills/cleanup-review
 cp -r /path/to/skills/subagent-collab ~/.cursor/skills/subagent-collab
+cp -r /path/to/skills/release-notes ~/.cursor/skills/release-notes
 ```
 
 **Project install:**
@@ -61,6 +65,7 @@ mkdir -p .cursor/skills
 
 cp -r /path/to/skills/cleanup-review .cursor/skills/cleanup-review
 cp -r /path/to/skills/subagent-collab .cursor/skills/subagent-collab
+cp -r /path/to/skills/release-notes .cursor/skills/release-notes
 ```
 
 Skills can be invoked via the slash command menu or triggered automatically when the agent matches your request to a skill description.
@@ -77,6 +82,7 @@ Codex discovers skills from `~/.codex/skills/` (global) and `.agents/skills/` (p
 ```bash
 cp -r /path/to/skills/cleanup-review ~/.codex/skills/cleanup-review
 cp -r /path/to/skills/subagent-collab ~/.codex/skills/subagent-collab
+cp -r /path/to/skills/release-notes ~/.codex/skills/release-notes
 ```
 
 **Project install:**
@@ -86,6 +92,7 @@ mkdir -p .agents/skills
 
 cp -r /path/to/skills/cleanup-review .agents/skills/cleanup-review
 cp -r /path/to/skills/subagent-collab .agents/skills/subagent-collab
+cp -r /path/to/skills/release-notes .agents/skills/release-notes
 ```
 
 Invoke explicitly with `/skills` or `$skill-name` in your prompt, or let Codex match implicitly by description.
@@ -117,6 +124,7 @@ Gemini CLI discovers skills from `~/.gemini/skills/` (user-scoped) and `.gemini/
 mkdir -p ~/.gemini/skills
 cp -r /path/to/skills/cleanup-review ~/.gemini/skills/cleanup-review
 cp -r /path/to/skills/subagent-collab ~/.gemini/skills/subagent-collab
+cp -r /path/to/skills/release-notes ~/.gemini/skills/release-notes
 ```
 
 **Workspace install:**
@@ -126,6 +134,7 @@ mkdir -p .gemini/skills
 
 cp -r /path/to/skills/cleanup-review .gemini/skills/cleanup-review
 cp -r /path/to/skills/subagent-collab .gemini/skills/subagent-collab
+cp -r /path/to/skills/release-notes .gemini/skills/release-notes
 ```
 
 Gemini auto-discovers skills at session start. When it matches your request to a skill, it calls `activate_skill` and asks for your confirmation before loading.
@@ -135,6 +144,7 @@ Manage skills within a session:
 /skills list
 /skills enable cleanup-review
 /skills disable subagent-collab
+/skills enable release-notes
 ```
 
 Docs: [Gemini CLI Agent Skills](https://geminicli.com/docs/cli/skills/)
@@ -149,16 +159,20 @@ If you use multiple platforms and want a single source of truth, symlink from on
 # Use Claude Code as the canonical location
 cp -r /path/to/skills/cleanup-review ~/.claude/skills/cleanup-review
 cp -r /path/to/skills/subagent-collab ~/.claude/skills/subagent-collab
+cp -r /path/to/skills/release-notes ~/.claude/skills/release-notes
 
 # Symlink for other platforms
 ln -s ~/.claude/skills/cleanup-review ~/.cursor/skills/cleanup-review
 ln -s ~/.claude/skills/cleanup-review ~/.codex/skills/cleanup-review
 ln -s ~/.claude/skills/cleanup-review ~/.gemini/skills/cleanup-review
 
-# Repeat for subagent-collab
 ln -s ~/.claude/skills/subagent-collab ~/.cursor/skills/subagent-collab
 ln -s ~/.claude/skills/subagent-collab ~/.codex/skills/subagent-collab
 ln -s ~/.claude/skills/subagent-collab ~/.gemini/skills/subagent-collab
+
+ln -s ~/.claude/skills/release-notes ~/.cursor/skills/release-notes
+ln -s ~/.claude/skills/release-notes ~/.codex/skills/release-notes
+ln -s ~/.claude/skills/release-notes ~/.gemini/skills/release-notes
 ```
 
 Or symlink the entire skills directory if all your skills should be shared:
