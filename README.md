@@ -8,8 +8,8 @@ Skills are self-contained directories with a `SKILL.md` file that teaches coding
 
 | Skill | Description |
 |---|---|
-| **cleanup** | Structural code review for redundancy, dead code, and convention violations. Read-only by default. |
-| **collab** | Delegate subtasks to other coding agents (Claude Code, Codex, Cursor) via CLI subprocesses. |
+| **code-cleanup-review** | Structural code review for redundancy, dead code, and convention violations. Read-only by default. |
+| **subagent-collab** | Delegate subtasks to other coding agents (Claude Code, Codex, Cursor) via CLI subprocesses. |
 
 ## Installation
 
@@ -25,8 +25,8 @@ Claude Code discovers skills from `~/.claude/skills/` (global) and `.claude/skil
 git clone https://github.com/YOUR_USERNAME/skills.git /tmp/agent-skills
 
 # Copy individual skills
-cp -r /tmp/agent-skills/skills/cleanup ~/.claude/skills/cleanup
-cp -r /tmp/agent-skills/skills/collab ~/.claude/skills/collab
+cp -r /tmp/agent-skills/skills/code-cleanup-review ~/.claude/skills/code-cleanup-review
+cp -r /tmp/agent-skills/skills/subagent-collab ~/.claude/skills/subagent-collab
 ```
 
 **Project install (scoped to one repo):**
@@ -34,11 +34,11 @@ cp -r /tmp/agent-skills/skills/collab ~/.claude/skills/collab
 cd your-project
 mkdir -p .claude/skills
 
-cp -r /path/to/skills/cleanup .claude/skills/cleanup
-cp -r /path/to/skills/collab .claude/skills/collab
+cp -r /path/to/skills/code-cleanup-review .claude/skills/code-cleanup-review
+cp -r /path/to/skills/subagent-collab .claude/skills/subagent-collab
 ```
 
-Skills are available immediately. Claude auto-discovers them and can invoke via `/cleanup` or `/collab`, or load them automatically when relevant.
+Skills are available immediately. Claude auto-discovers them and can invoke via `/code-cleanup-review` or `/subagent-collab`, or load them automatically when relevant.
 
 Docs: [Claude Code Skills](https://code.claude.com/docs/en/skills)
 
@@ -50,8 +50,8 @@ Cursor discovers skills from `~/.cursor/skills/` (global) and `.cursor/skills/` 
 
 **Global install:**
 ```bash
-cp -r /path/to/skills/cleanup ~/.cursor/skills/cleanup
-cp -r /path/to/skills/collab ~/.cursor/skills/collab
+cp -r /path/to/skills/code-cleanup-review ~/.cursor/skills/code-cleanup-review
+cp -r /path/to/skills/subagent-collab ~/.cursor/skills/subagent-collab
 ```
 
 **Project install:**
@@ -59,8 +59,8 @@ cp -r /path/to/skills/collab ~/.cursor/skills/collab
 cd your-project
 mkdir -p .cursor/skills
 
-cp -r /path/to/skills/cleanup .cursor/skills/cleanup
-cp -r /path/to/skills/collab .cursor/skills/collab
+cp -r /path/to/skills/code-cleanup-review .cursor/skills/code-cleanup-review
+cp -r /path/to/skills/subagent-collab .cursor/skills/subagent-collab
 ```
 
 Skills can be invoked via the slash command menu or triggered automatically when the agent matches your request to a skill description.
@@ -75,8 +75,8 @@ Codex discovers skills from `~/.codex/skills/` (global) and `.agents/skills/` (p
 
 **Global install:**
 ```bash
-cp -r /path/to/skills/cleanup ~/.codex/skills/cleanup
-cp -r /path/to/skills/collab ~/.codex/skills/collab
+cp -r /path/to/skills/code-cleanup-review ~/.codex/skills/code-cleanup-review
+cp -r /path/to/skills/subagent-collab ~/.codex/skills/subagent-collab
 ```
 
 **Project install:**
@@ -84,15 +84,15 @@ cp -r /path/to/skills/collab ~/.codex/skills/collab
 cd your-project
 mkdir -p .agents/skills
 
-cp -r /path/to/skills/cleanup .agents/skills/cleanup
-cp -r /path/to/skills/collab .agents/skills/collab
+cp -r /path/to/skills/code-cleanup-review .agents/skills/code-cleanup-review
+cp -r /path/to/skills/subagent-collab .agents/skills/subagent-collab
 ```
 
 Invoke explicitly with `/skills` or `$skill-name` in your prompt, or let Codex match implicitly by description.
 
 You can also install via the built-in installer inside a Codex session:
 ```
-$skill-installer install cleanup
+$skill-installer install code-cleanup-review
 ```
 
 To disable a skill without deleting it, add to `~/.codex/config.toml`:
@@ -115,8 +115,8 @@ Gemini CLI discovers skills from `~/.gemini/skills/` (user-scoped) and `.gemini/
 **User install:**
 ```bash
 mkdir -p ~/.gemini/skills
-cp -r /path/to/skills/cleanup ~/.gemini/skills/cleanup
-cp -r /path/to/skills/collab ~/.gemini/skills/collab
+cp -r /path/to/skills/code-cleanup-review ~/.gemini/skills/code-cleanup-review
+cp -r /path/to/skills/subagent-collab ~/.gemini/skills/subagent-collab
 ```
 
 **Workspace install:**
@@ -124,8 +124,8 @@ cp -r /path/to/skills/collab ~/.gemini/skills/collab
 cd your-project
 mkdir -p .gemini/skills
 
-cp -r /path/to/skills/cleanup .gemini/skills/cleanup
-cp -r /path/to/skills/collab .gemini/skills/collab
+cp -r /path/to/skills/code-cleanup-review .gemini/skills/code-cleanup-review
+cp -r /path/to/skills/subagent-collab .gemini/skills/subagent-collab
 ```
 
 Gemini auto-discovers skills at session start. When it matches your request to a skill, it calls `activate_skill` and asks for your confirmation before loading.
@@ -133,8 +133,8 @@ Gemini auto-discovers skills at session start. When it matches your request to a
 Manage skills within a session:
 ```
 /skills list
-/skills enable cleanup
-/skills disable collab
+/skills enable code-cleanup-review
+/skills disable subagent-collab
 ```
 
 Docs: [Gemini CLI Agent Skills](https://geminicli.com/docs/cli/skills/)
@@ -147,18 +147,18 @@ If you use multiple platforms and want a single source of truth, symlink from on
 
 ```bash
 # Use Claude Code as the canonical location
-cp -r /path/to/skills/cleanup ~/.claude/skills/cleanup
-cp -r /path/to/skills/collab ~/.claude/skills/collab
+cp -r /path/to/skills/code-cleanup-review ~/.claude/skills/code-cleanup-review
+cp -r /path/to/skills/subagent-collab ~/.claude/skills/subagent-collab
 
 # Symlink for other platforms
-ln -s ~/.claude/skills/cleanup ~/.cursor/skills/cleanup
-ln -s ~/.claude/skills/cleanup ~/.codex/skills/cleanup
-ln -s ~/.claude/skills/cleanup ~/.gemini/skills/cleanup
+ln -s ~/.claude/skills/code-cleanup-review ~/.cursor/skills/code-cleanup-review
+ln -s ~/.claude/skills/code-cleanup-review ~/.codex/skills/code-cleanup-review
+ln -s ~/.claude/skills/code-cleanup-review ~/.gemini/skills/code-cleanup-review
 
-# Repeat for collab
-ln -s ~/.claude/skills/collab ~/.cursor/skills/collab
-ln -s ~/.claude/skills/collab ~/.codex/skills/collab
-ln -s ~/.claude/skills/collab ~/.gemini/skills/collab
+# Repeat for subagent-collab
+ln -s ~/.claude/skills/subagent-collab ~/.cursor/skills/subagent-collab
+ln -s ~/.claude/skills/subagent-collab ~/.codex/skills/subagent-collab
+ln -s ~/.claude/skills/subagent-collab ~/.gemini/skills/subagent-collab
 ```
 
 Or symlink the entire skills directory if all your skills should be shared:
@@ -183,7 +183,7 @@ description: >
 # Instructions the agent follows when the skill is activated.
 ```
 
-The `name` becomes the slash command (e.g., `/cleanup`). The `description` is what agents use to decide when to load the skill automatically — keep it precise.
+The `name` becomes the slash command (e.g., `/code-cleanup-review`). The `description` is what agents use to decide when to load the skill automatically — keep it precise.
 
 Optional supporting directories:
 ```
