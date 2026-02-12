@@ -1,0 +1,30 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "ebt-agent-skills",
+  "version": "0.0.1",
+  "description": "Custom agent skills for code review, cleanup, and collaboration workflows.",
+  "owner": {
+    "name": "EPICBADTIMING",
+    "email": ""
+  },
+  "plugins": [
+    {
+      "name": "cleanup",
+      "version": "0.0.1",
+      "description": "Review changed or staged code for structural cleanup: redundancy, dead code, rule violations, and low-value noise. Use when reviewing diffs, PRs, or modified files before commit. Reports findings only — does not apply changes unless explicitly instructed.",
+      "author": { "name": "EPICBADTIMING" },
+      "source": "./skills/cleanup",
+      "category": "code-quality",
+      "skills": ["./"]
+    },
+    {
+      "name": "subagent-collab",
+      "version": "0.0.1",
+      "description": "Delegate subtasks to other coding agents via CLI. Use when a task benefits from isolated execution, parallel work, a second opinion, or specialized analysis. Do NOT use for trivial tasks you can complete faster yourself.",
+      "author": { "name": "EPICBADTIMING" },
+      "source": "./skills/subagent-collab",
+      "category": "productivity",
+      "skills": ["./"]
+    }
+  ]
+}

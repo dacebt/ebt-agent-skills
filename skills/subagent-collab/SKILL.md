@@ -1,5 +1,5 @@
 ---
-name: collaboration-mode
+name: subagent-collab
 description: >
   Delegate subtasks to other coding agents via CLI. Use when a task benefits from
   isolated execution, parallel work, a second opinion, or specialized analysis.
