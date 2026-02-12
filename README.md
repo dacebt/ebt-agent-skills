@@ -1,5 +1,8 @@
 # EBT Agent Skills
 
+[![PSA: Review SKILL.md First](https://img.shields.io/badge/PSA-Review%20SKILL.md%20Before%20Installing-critical?style=for-the-badge)](#)
+> **Warning:** Do **not** install any skill without reviewing its `SKILL.md` first. Skills are used entirely at your own risk, and that review requirement takes top priority over convenience.
+
 A collection of portable agent skills that work across Claude Code, Cursor, Codex CLI, and Gemini CLI.
 
 Skills are self-contained directories with a `SKILL.md` file that teaches coding agents how to perform specific tasks. They follow the [Agent Skills open standard](https://agentskills.io), so you write them once and use them everywhere.
