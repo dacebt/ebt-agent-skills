@@ -9,11 +9,11 @@
   },
   "plugins": [
     {
-      "name": "code-cleanup-review",
+      "name": "cleanup-review",
       "version": "0.0.1",
       "description": "Review changed or staged code for structural cleanup: redundancy, dead code, rule violations, and low-value noise. Use when reviewing diffs, PRs, or modified files before commit. Reports findings only — does not apply changes unless explicitly instructed.",
       "author": { "name": "EPICBADTIMING" },
-      "source": "./skills/cleanup",
+      "source": "./skills/cleanup-review",
       "category": "code-quality",
       "skills": ["./"]
     },

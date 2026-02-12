@@ -1,5 +1,5 @@
 ---
-name: code-cleanup-review
+name: cleanup-review
 description: >
   Review changed or staged code for structural cleanup: redundancy, dead code, rule
   violations, and low-value noise. Use when reviewing diffs, PRs, or modified files
