@@ -14,93 +14,122 @@ Skills are self-contained directories with a `SKILL.md` file that teaches coding
 
 ## Installation
 
-All platforms use the same `SKILL.md` format. The only difference is where the files go.
+All platforms use the same `SKILL.md` format. The differences are where the files go, and whether the platform has a built-in installer or marketplace.
 
 ### Claude Code
 
+Claude Code has a **plugin marketplace** system for discovering and installing skills. This is the recommended approach. Manual file copy is also supported.
+
+**Marketplace (recommended):**
+
+Skills distributed via marketplace are installed directly from within a Claude Code session:
+
+```bash
+# Register a marketplace (GitHub repo with a marketplace.json)
+/plugin marketplace add anthropics/skills
+
+# Install a specific skill/plugin from the marketplace
+/plugin install document-skills@anthropic-agent-skills
+```
+
+Anthropic maintains an official marketplace at [`anthropics/skills`](https://github.com/anthropics/skills) and [`anthropics/claude-code`](https://github.com/anthropics/claude-code). Community marketplaces are GitHub repos containing a `.claude-plugin/marketplace.json` catalog — anyone can create and host one. Browse and install interactively with the `/plugin` menu.
+
+Useful marketplace commands:
+```bash
+/plugin marketplace list       # List registered marketplaces
+/plugin marketplace update     # Refresh marketplace catalogs
+/plugin list                   # List installed plugins
+/plugin uninstall <name>       # Remove a plugin
+```
+
+**Manual install (standalone skills without a marketplace):**
+
 Claude Code discovers skills from `~/.claude/skills/` (global) and `.claude/skills/` (project-level). Project skills take precedence.
 
-**Global install (available in all projects):**
 ```bash
-# Clone the repo
-git clone https://github.com/YOUR_USERNAME/skills.git /tmp/agent-skills
+# Global (available in all projects)
+mkdir -p ~/.claude/skills
+cp -r /path/to/skills/* ~/.claude/skills/
 
-# Copy individual skills
-cp -r /tmp/agent-skills/skills/cleanup-review ~/.claude/skills/cleanup-review
-cp -r /tmp/agent-skills/skills/subagent-collab ~/.claude/skills/subagent-collab
-cp -r /tmp/agent-skills/skills/release-notes ~/.claude/skills/release-notes
-```
-
-**Project install (scoped to one repo):**
-```bash
+# Project (scoped to one repo)
 cd your-project
 mkdir -p .claude/skills
-
-cp -r /path/to/skills/cleanup-review .claude/skills/cleanup-review
-cp -r /path/to/skills/subagent-collab .claude/skills/subagent-collab
-cp -r /path/to/skills/release-notes .claude/skills/release-notes
+cp -r /path/to/skills/* .claude/skills/
 ```
 
-Skills are available immediately. Claude auto-discovers them and can invoke via `/cleanup-review`, `/subagent-collab`, or `/release-notes`, or load them automatically when relevant.
+Manually installed skills are available immediately. Claude auto-discovers them and can invoke them by name or load them automatically when relevant.
 
-Docs: [Claude Code Skills](https://code.claude.com/docs/en/skills)
+Docs: [Claude Code Plugins](https://code.claude.com/docs/en/plugin-marketplaces) · [Claude Code Skills](https://code.claude.com/docs/en/skills)
 
 ---
 
 ### Cursor
 
-Cursor discovers skills from `~/.cursor/skills/` (global) and `.cursor/skills/` (project-level). Announced in the January 2026 release.
+Cursor supports the Agent Skills standard as of January 2026. There is **no built-in marketplace or installer** — installation is manual file copy only.
+
+Cursor discovers skills from these locations:
+- `.cursor/skills/` — project-level
+- `.claude/skills/` — project-level (Claude Code compatibility)
+- `~/.cursor/skills/` — user-level (global)
+
+> **Note:** `~/.cursor/skills-cursor/` is reserved for Cursor's built-in skills (e.g. `create-skill`, `create-rule`). Do not install custom skills there.
 
 **Global install:**
 ```bash
-cp -r /path/to/skills/cleanup-review ~/.cursor/skills/cleanup-review
-cp -r /path/to/skills/subagent-collab ~/.cursor/skills/subagent-collab
-cp -r /path/to/skills/release-notes ~/.cursor/skills/release-notes
+mkdir -p ~/.cursor/skills
+cp -r /path/to/skills/* ~/.cursor/skills/
 ```
 
 **Project install:**
 ```bash
 cd your-project
 mkdir -p .cursor/skills
-
-cp -r /path/to/skills/cleanup-review .cursor/skills/cleanup-review
-cp -r /path/to/skills/subagent-collab .cursor/skills/subagent-collab
-cp -r /path/to/skills/release-notes .cursor/skills/release-notes
+cp -r /path/to/skills/* .cursor/skills/
 ```
 
-Skills can be invoked via the slash command menu or triggered automatically when the agent matches your request to a skill description.
+Skills are discovered automatically. The agent matches your request to a skill's description and activates it when relevant.
 
-> **Note:** `~/.cursor/skills-cursor/` is reserved for Cursor's built-in skills. Don't install custom skills there.
+Because Cursor also reads `.claude/skills/`, projects that already have skills installed for Claude Code will work in Cursor without any extra setup.
+
+Docs: [Cursor Docs](https://docs.cursor.com)
 
 ---
 
 ### Codex CLI
 
-Codex discovers skills from `~/.codex/skills/` (global) and `.agents/skills/` (project-level, scanned from working directory up to repo root).
+Codex CLI has a **built-in skill installer** and an official skills catalog hosted at [`openai/skills`](https://github.com/openai/skills). The catalog is organized into three tiers:
 
-**Global install:**
+- `.system` — automatically installed with Codex
+- `.curated` — vetted skills, installable by name
+- `.experimental` — community/preview skills, installable by folder path or URL
+
+**Install via the built-in installer (inside a Codex session):**
 ```bash
-cp -r /path/to/skills/cleanup-review ~/.codex/skills/cleanup-review
-cp -r /path/to/skills/subagent-collab ~/.codex/skills/subagent-collab
-cp -r /path/to/skills/release-notes ~/.codex/skills/release-notes
+# Install a curated skill by name
+$skill-installer install cleanup-review
+
+# Install an experimental skill by path or URL
+$skill-installer install https://github.com/openai/skills/tree/main/skills/.experimental/create-plan
 ```
 
-**Project install:**
+Restart Codex after installing new skills if they don't appear automatically.
+
+**Manual install (standalone skills):**
+
+Codex discovers skills from `~/.codex/skills/` (global) and `.agents/skills/` (project-level, scanned from working directory up to repo root).
+
 ```bash
+# Global
+mkdir -p ~/.codex/skills
+cp -r /path/to/skills/* ~/.codex/skills/
+
+# Project
 cd your-project
 mkdir -p .agents/skills
-
-cp -r /path/to/skills/cleanup-review .agents/skills/cleanup-review
-cp -r /path/to/skills/subagent-collab .agents/skills/subagent-collab
-cp -r /path/to/skills/release-notes .agents/skills/release-notes
+cp -r /path/to/skills/* .agents/skills/
 ```
 
 Invoke explicitly with `/skills` or `$skill-name` in your prompt, or let Codex match implicitly by description.
-
-You can also install via the built-in installer inside a Codex session:
-```
-$skill-installer install cleanup-review
-```
 
 To disable a skill without deleting it, add to `~/.codex/config.toml`:
 ```toml
@@ -109,77 +138,100 @@ path = "/path/to/skill/SKILL.md"
 enabled = false
 ```
 
-Restart Codex after adding new skills if they don't appear automatically.
-
-Docs: [Codex Agent Skills](https://developers.openai.com/codex/skills/)
+Docs: [Codex Agent Skills](https://developers.openai.com/codex/skills/) · [Codex Changelog](https://developers.openai.com/codex/changelog)
 
 ---
 
 ### Gemini CLI
 
-Gemini CLI discovers skills from `~/.gemini/skills/` (user-scoped) and `.gemini/skills/` (workspace-scoped). Workspace skills override user skills when names collide. Currently in preview — install via `npm install -g @google/gemini-cli@preview`.
+Gemini CLI has **built-in skill management commands** and supports skill distribution through **extensions**. Skills can also be installed manually.
 
-**User install:**
+Gemini CLI discovers skills from three tiers (highest precedence first):
+1. `.gemini/skills/` — workspace-scoped
+2. `~/.gemini/skills/` — user-scoped
+3. Extension-bundled skills — installed via `gemini extensions install`
+
+Workspace skills override user skills when names collide.
+
+**Install via CLI commands:**
+
+Skills can be packaged into `.skill` files and installed with scope control:
 ```bash
-mkdir -p ~/.gemini/skills
-cp -r /path/to/skills/cleanup-review ~/.gemini/skills/cleanup-review
-cp -r /path/to/skills/subagent-collab ~/.gemini/skills/subagent-collab
-cp -r /path/to/skills/release-notes ~/.gemini/skills/release-notes
+# Install to current workspace
+gemini skills install <path/to/skill-name.skill> --scope workspace
+
+# Install for all workspaces
+gemini skills install <path/to/skill-name.skill> --scope user
 ```
 
-**Workspace install:**
+**Install via extensions:**
+
+Extensions bundle skills alongside MCP servers, commands, and context. Install from a GitHub URL:
 ```bash
+gemini extensions install https://github.com/<owner>/<extension-repo>
+```
+
+**In-session management:**
+```bash
+/skills list                          # List discovered skills
+/skills enable cleanup-review         # Enable a skill
+/skills disable subagent-collab       # Disable a skill
+/skills reload                        # Reload after installing new skills
+```
+
+> **Note:** `/skills enable` and `/skills disable` default to user scope. Use `--scope workspace` for workspace-specific settings.
+
+**Manual install (standalone skills):**
+```bash
+# User-scoped
+mkdir -p ~/.gemini/skills
+cp -r /path/to/skills/* ~/.gemini/skills/
+
+# Workspace-scoped
 cd your-project
 mkdir -p .gemini/skills
-
-cp -r /path/to/skills/cleanup-review .gemini/skills/cleanup-review
-cp -r /path/to/skills/subagent-collab .gemini/skills/subagent-collab
-cp -r /path/to/skills/release-notes .gemini/skills/release-notes
+cp -r /path/to/skills/* .gemini/skills/
 ```
 
-Gemini auto-discovers skills at session start. When it matches your request to a skill, it calls `activate_skill` and asks for your confirmation before loading.
+Gemini auto-discovers skills at session start. When it matches your request to a skill, it calls `activate_skill` and asks for confirmation before loading the full instructions into context.
 
-Manage skills within a session:
-```
-/skills list
-/skills enable cleanup-review
-/skills disable subagent-collab
-/skills enable release-notes
-```
-
-Docs: [Gemini CLI Agent Skills](https://geminicli.com/docs/cli/skills/)
+Docs: [Gemini CLI Agent Skills](https://geminicli.com/docs/cli/skills/) · [Getting Started with Skills](https://geminicli.com/docs/cli/tutorials/skills-getting-started/)
 
 ---
 
-### Symlink for shared installs
+### Cross-platform installers
 
-If you use multiple platforms and want a single source of truth, symlink from one platform's directory to the others:
+If you use multiple platforms, these third-party tools can install skills across all of them in one step:
 
+**Vercel's `add-skill`:**
 ```bash
-# Use Claude Code as the canonical location
-cp -r /path/to/skills/cleanup-review ~/.claude/skills/cleanup-review
-cp -r /path/to/skills/subagent-collab ~/.claude/skills/subagent-collab
-cp -r /path/to/skills/release-notes ~/.claude/skills/release-notes
-
-# Symlink for other platforms
-ln -s ~/.claude/skills/cleanup-review ~/.cursor/skills/cleanup-review
-ln -s ~/.claude/skills/cleanup-review ~/.codex/skills/cleanup-review
-ln -s ~/.claude/skills/cleanup-review ~/.gemini/skills/cleanup-review
-
-ln -s ~/.claude/skills/subagent-collab ~/.cursor/skills/subagent-collab
-ln -s ~/.claude/skills/subagent-collab ~/.codex/skills/subagent-collab
-ln -s ~/.claude/skills/subagent-collab ~/.gemini/skills/subagent-collab
-
-ln -s ~/.claude/skills/release-notes ~/.cursor/skills/release-notes
-ln -s ~/.claude/skills/release-notes ~/.codex/skills/release-notes
-ln -s ~/.claude/skills/release-notes ~/.gemini/skills/release-notes
+bunx add-skill <owner>/<repo>
 ```
 
-Or symlink the entire skills directory if all your skills should be shared:
+**OpenSkills:**
 ```bash
+npx openskills install <owner>/<repo>
+npx openskills sync
+```
+
+Both tools detect which platforms are present and write to the correct directories automatically.
+
+### Symlink for shared installs
+
+If you prefer manual control, copy skills once and symlink the directory:
+
+```bash
+# Copy all skills to one canonical location
+mkdir -p ~/.claude/skills
+cp -r /path/to/skills/* ~/.claude/skills/
+
+# Symlink the directory for other platforms
+ln -s ~/.claude/skills ~/.cursor/skills
 ln -s ~/.claude/skills ~/.codex/skills
 ln -s ~/.claude/skills ~/.gemini/skills
 ```
+
+For per-skill control, symlink each skill instead: `for skill in ~/.claude/skills/*; do name=$(basename "$skill"); ln -sf "$skill" ~/.cursor/skills/"$name"; done` (repeat for each platform).
 
 Codex and Gemini CLI both follow symlinks during skill discovery.
 
@@ -216,9 +268,9 @@ skill-name/
 
 ## Quick reference
 
-| Platform | Global path | Project path | Docs |
-|---|---|---|---|
-| Claude Code | `~/.claude/skills/` | `.claude/skills/` | [code.claude.com](https://code.claude.com/docs/en/skills) |
-| Cursor | `~/.cursor/skills/` | `.cursor/skills/` | [cursor.com](https://docs.cursor.com) |
-| Codex CLI | `~/.codex/skills/` | `.agents/skills/` | [developers.openai.com](https://developers.openai.com/codex/skills/) |
-| Gemini CLI | `~/.gemini/skills/` | `.gemini/skills/` | [geminicli.com](https://geminicli.com/docs/cli/skills/) |
+| Platform | Marketplace / Installer | Global path | Project path | Docs |
+|---|---|---|---|---|
+| Claude Code | `/plugin marketplace add` + `/plugin install` | `~/.claude/skills/` | `.claude/skills/` | [code.claude.com](https://code.claude.com/docs/en/skills) |
+| Cursor | None (manual copy only) | `~/.cursor/skills/` | `.cursor/skills/` | [cursor.com](https://docs.cursor.com) |
+| Codex CLI | `$skill-installer install` (in-session) | `~/.codex/skills/` | `.agents/skills/` | [developers.openai.com](https://developers.openai.com/codex/skills/) |
+| Gemini CLI | `gemini skills install` + extensions | `~/.gemini/skills/` | `.gemini/skills/` | [geminicli.com](https://geminicli.com/docs/cli/skills/) |
