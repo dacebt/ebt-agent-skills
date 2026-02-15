@@ -22,7 +22,10 @@ Before installing, confirm:
 | Skill | Description |
 |---|---|
 | **cleanup-review** | Structural code review for redundancy, dead code, and convention violations. Read-only by default. |
-| **subagent-collab** | Delegate subtasks to other coding agents (Claude Code, Codex, Cursor) via CLI subprocesses. |
+| **claude-shadow-clone-jutsu** | Delegate self-contained subtasks to Claude Code via `claude -p`. |
+| **codex-shadow-clone-jutsu** | Delegate self-contained subtasks to Codex CLI via `codex exec` (with optional `--full-auto`). |
+| **cursor-shadow-clone-jutsu** | Delegate self-contained subtasks to Cursor Agent via `cursor-agent chat`. |
+| **gemini-shadow-clone-jutsu** | Delegate self-contained subtasks to Gemini CLI via `gemini -p`. |
 | **release-notes** | Generate release notes from git history. Produces a technical changelog with commit references and a user-facing changelog in plain language. |
 
 ## Installation
@@ -188,7 +191,7 @@ gemini extensions install https://github.com/<owner>/<extension-repo>
 ```bash
 /skills list                          # List discovered skills
 /skills enable cleanup-review         # Enable a skill
-/skills disable subagent-collab       # Disable a skill
+/skills disable claude-shadow-clone-jutsu  # Disable a skill
 /skills reload                        # Reload after installing new skills
 ```
 
