@@ -18,38 +18,38 @@
       "skills": ["./"]
     },
     {
-      "name": "claude-shadow-clone-jutsu",
+      "name": "claude-subagent",
       "version": "0.0.1",
       "description": "Delegate self-contained subtasks to Claude Code via CLI for isolated execution, parallel work, and second-opinion analysis.",
       "author": { "name": "EPICBADTIMING" },
-      "source": "./skills/claude-shadow-clone-jutsu",
+      "source": "./skills/claude-subagent",
       "category": "productivity",
       "skills": ["./"]
     },
     {
-      "name": "codex-shadow-clone-jutsu",
+      "name": "codex-subagent",
       "version": "0.0.1",
       "description": "Delegate self-contained subtasks to Codex CLI via subprocess execution (`codex exec` with optional `--full-auto`).",
       "author": { "name": "EPICBADTIMING" },
-      "source": "./skills/codex-shadow-clone-jutsu",
+      "source": "./skills/codex-subagent",
       "category": "productivity",
       "skills": ["./"]
     },
     {
-      "name": "cursor-shadow-clone-jutsu",
+      "name": "cursor-subagent",
       "version": "0.0.1",
       "description": "Delegate self-contained subtasks to Cursor Agent via CLI (`cursor-agent chat`) for isolated and parallel execution.",
       "author": { "name": "EPICBADTIMING" },
-      "source": "./skills/cursor-shadow-clone-jutsu",
+      "source": "./skills/cursor-subagent",
       "category": "productivity",
       "skills": ["./"]
     },
     {
-      "name": "gemini-shadow-clone-jutsu",
+      "name": "gemini-subagent",
       "version": "0.0.1",
       "description": "Delegate self-contained subtasks to Gemini CLI via CLI prompt execution for isolated and parallel execution.",
       "author": { "name": "EPICBADTIMING" },
-      "source": "./skills/gemini-shadow-clone-jutsu",
+      "source": "./skills/gemini-subagent",
       "category": "productivity",
       "skills": ["./"]
     },

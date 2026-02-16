@@ -1,16 +1,16 @@
 ---
-name: claude-shadow-clone-jutsu
+name: cursor-subagent
 description: >
-  Delegate subtasks to Claude Code via CLI for isolated execution, parallel work,
+  Delegate subtasks to Cursor Agent via CLI for isolated execution, parallel work,
   second-opinion analysis, or mechanically intensive coding tasks. Use when you can
-  provide a self-contained prompt and want Claude-specific subprocess delegation.
+  provide a self-contained prompt and want Cursor-specific subprocess delegation.
   Do NOT use for trivial tasks, sensitive secrets in CLI args, or work requiring
   continuous user dialogue.
 ---
 
-# Claude Shadow Clone Protocol
+# Cursor Shadow Clone Protocol
 
-Invoke Claude Code as a CLI subprocess to delegate self-contained subtasks.
+Invoke Cursor Agent as a CLI subprocess to delegate self-contained subtasks.
 The subagent has no conversation context, so prompts must be complete.
 
 ## When to delegate
@@ -32,11 +32,11 @@ Do NOT delegate when:
 
 ## Provider command
 
-Before invoking, verify binary availability: `command -v claude &>/dev/null`.
+Before invoking, verify binary availability: `command -v cursor-agent &>/dev/null`.
 
-| Agent       | Binary   | Invocation           |
-| ----------- | -------- | -------------------- |
-| Claude Code | `claude` | `claude -p "<task>"` |
+| Agent        | Binary         | Invocation                     |
+| ------------ | -------------- | ------------------------------ |
+| Cursor Agent | `cursor-agent` | `cursor-agent chat "<task>"` |
 
 If the binary is not found, do the work yourself.
 
@@ -55,7 +55,7 @@ A good task prompt includes:
 ### Standard invocation
 
 ```bash
-claude -p "<task>"
+cursor-agent chat "<task>"
 ```
 
 ### Isolated execution with git worktrees
@@ -64,7 +64,7 @@ claude -p "<task>"
 WORKTREE_PATH=".worktrees/agent-task"
 
 git worktree add "${WORKTREE_PATH}" HEAD --detach 2>/dev/null
-cd "${WORKTREE_PATH}" && claude -p "<task>"
+cd "${WORKTREE_PATH}" && cursor-agent chat "<task>"
 ```
 
 ### Review and integrate changes from a worktree

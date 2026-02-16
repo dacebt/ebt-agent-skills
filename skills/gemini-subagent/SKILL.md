@@ -1,16 +1,16 @@
 ---
-name: cursor-shadow-clone-jutsu
+name: gemini-subagent
 description: >
-  Delegate subtasks to Cursor Agent via CLI for isolated execution, parallel work,
+  Delegate subtasks to Gemini CLI for isolated execution, parallel work,
   second-opinion analysis, or mechanically intensive coding tasks. Use when you can
-  provide a self-contained prompt and want Cursor-specific subprocess delegation.
+  provide a self-contained prompt and want Gemini-specific subprocess delegation.
   Do NOT use for trivial tasks, sensitive secrets in CLI args, or work requiring
   continuous user dialogue.
 ---
 
-# Cursor Shadow Clone Protocol
+# Gemini Shadow Clone Protocol
 
-Invoke Cursor Agent as a CLI subprocess to delegate self-contained subtasks.
+Invoke Gemini CLI as a subprocess to delegate self-contained subtasks.
 The subagent has no conversation context, so prompts must be complete.
 
 ## When to delegate
@@ -32,11 +32,11 @@ Do NOT delegate when:
 
 ## Provider command
 
-Before invoking, verify binary availability: `command -v cursor-agent &>/dev/null`.
+Before invoking, verify binary availability: `command -v gemini &>/dev/null`.
 
-| Agent        | Binary         | Invocation                     |
-| ------------ | -------------- | ------------------------------ |
-| Cursor Agent | `cursor-agent` | `cursor-agent chat "<task>"` |
+| Agent      | Binary   | Invocation            |
+| ---------- | -------- | --------------------- |
+| Gemini CLI | `gemini` | `gemini -p "<task>"` |
 
 If the binary is not found, do the work yourself.
 
@@ -55,7 +55,7 @@ A good task prompt includes:
 ### Standard invocation
 
 ```bash
-cursor-agent chat "<task>"
+gemini -p "<task>"
 ```
 
 ### Isolated execution with git worktrees
@@ -64,7 +64,7 @@ cursor-agent chat "<task>"
 WORKTREE_PATH=".worktrees/agent-task"
 
 git worktree add "${WORKTREE_PATH}" HEAD --detach 2>/dev/null
-cd "${WORKTREE_PATH}" && cursor-agent chat "<task>"
+cd "${WORKTREE_PATH}" && gemini -p "<task>"
 ```
 
 ### Review and integrate changes from a worktree

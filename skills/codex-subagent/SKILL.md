@@ -1,5 +1,5 @@
 ---
-name: codex-shadow-clone-jutsu
+name: codex-subagent
 description: >
   Delegate subtasks to Codex CLI via subprocess execution for isolated execution,
   parallel work, second-opinion analysis, or mechanically intensive coding tasks.
