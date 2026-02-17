@@ -40,6 +40,30 @@ Before invoking, verify binary availability: `command -v claude &>/dev/null`.
 
 If the binary is not found, do the work yourself.
 
+## CLI reference
+
+Flags useful for subprocess delegation with `claude -p`:
+
+| Flag | Description |
+| ---- | ----------- |
+| `--model <name>` | Model to use (e.g. `sonnet`, `opus`, `haiku`, or a full model ID) |
+| `--permission-mode <mode>` | Permission mode: `default`, `plan`, `bypassPermissions` |
+| `--dangerously-skip-permissions` | Skip all permission checks (use with caution) |
+| `--allowedTools <tools...>` | Only allow these tools (space-separated) |
+| `--disallowedTools <tools...>` | Block these tools (space-separated) |
+| `--tools <tools...>` | Restrict to a specific set of built-in tools |
+| `--output-format <fmt>` | Output format: `text`, `json`, `stream-json` |
+| `--json-schema <schema>` | Enforce structured JSON output matching the given schema |
+| `--max-budget-usd <n>` | Maximum spend in USD before stopping |
+| `--system-prompt <prompt>` | Override the system prompt |
+| `--append-system-prompt <prompt>` | Append to the default system prompt |
+| `--add-dir <path>` | Additional directory to include in context |
+| `--mcp-config <path>` | Path to MCP server config file |
+| `--strict-mcp-config` | Fail if MCP config is invalid instead of ignoring |
+| `--no-session-persistence` | Don't save the session to disk |
+| `--fallback-model <name>` | Model to fall back to on overload |
+| `--effort <level>` | Reasoning effort: `low`, `medium`, `high` |
+
 ## Writing the task prompt
 
 A good task prompt includes:
@@ -56,6 +80,15 @@ A good task prompt includes:
 
 ```bash
 claude -p "<task>"
+
+# With model selection and cost cap
+claude -p --model opus --max-budget-usd 1.00 "<task>"
+
+# With JSON output
+claude -p --output-format json "<task>"
+
+# Read-only analysis (plan mode)
+claude -p --permission-mode plan "<task>"
 ```
 
 ### Isolated execution with git worktrees

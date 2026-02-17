@@ -40,6 +40,22 @@ Before invoking, verify binary availability: `command -v cursor-agent &>/dev/nul
 
 If the binary is not found, do the work yourself.
 
+## CLI reference
+
+Flags useful for subprocess delegation with `cursor-agent chat`:
+
+| Flag | Description |
+| ---- | ----------- |
+| `--model <name>` | Model to use |
+| `-p, --print` | Non-interactive mode (print output and exit) |
+| `--output-format <fmt>` | Output format: `text`, `json`, `stream-json` |
+| `--mode <mode>` | Agent mode: `plan` (read-only) or `ask` (Q&A only) |
+| `--force` / `--yolo` | Auto-approve all tool calls and commands |
+| `--sandbox <mode>` | Sandbox: `enabled` or `disabled` |
+| `--trust` | Trust workspace without prompting |
+| `--workspace <path>` | Set the working directory |
+| `--approve-mcps` | Auto-approve MCP server connections |
+
 ## Writing the task prompt
 
 A good task prompt includes:
@@ -56,6 +72,15 @@ A good task prompt includes:
 
 ```bash
 cursor-agent chat "<task>"
+
+# Non-interactive with JSON output
+cursor-agent chat -p --output-format json "<task>"
+
+# Read-only analysis
+cursor-agent chat -p --mode plan "<task>"
+
+# Auto-approve all actions
+cursor-agent chat -p --yolo "<task>"
 ```
 
 ### Isolated execution with git worktrees

@@ -41,6 +41,26 @@ Before invoking, verify binary availability: `command -v codex &>/dev/null`.
 
 Use `codex exec` by default. Use `--full-auto` only when explicitly requested.
 
+## CLI reference
+
+Flags useful for subprocess delegation with `codex exec`:
+
+| Flag | Description |
+| ---- | ----------- |
+| `--model <name>` | Model to use |
+| `--sandbox <mode>` | Sandbox mode: `read-only`, `workspace-write`, `danger-full-access` |
+| `--full-auto` | Auto-approve all actions + workspace-write sandbox |
+| `--dangerously-bypass-approvals-and-sandbox` | Skip all approval and sandbox checks |
+| `--json` | Output in JSONL format |
+| `--output-schema <schema>` | Enforce structured output via JSON Schema |
+| `-o, --output-last-message <path>` | Write the final assistant message to a file |
+| `--cd <path>` | Set the working directory |
+| `--add-dir <path>` | Additional writable directory |
+| `--image <path>` | Attach an image to the prompt |
+| `--config <key=value>` | Override a config value |
+| `--ephemeral` | Don't persist the session |
+| `--skip-git-repo-check` | Allow running outside a git repository |
+
 ## Writing the task prompt
 
 A good task prompt includes:
@@ -57,6 +77,15 @@ A good task prompt includes:
 
 ```bash
 codex exec "<task>"
+
+# With model selection
+codex exec --model o3 "<task>"
+
+# Full auto with JSON output
+codex exec --full-auto --json "<task>"
+
+# Sandboxed read-only analysis
+codex exec --sandbox read-only "<task>"
 ```
 
 ### Isolated execution with git worktrees

@@ -40,6 +40,23 @@ Before invoking, verify binary availability: `command -v gemini &>/dev/null`.
 
 If the binary is not found, do the work yourself.
 
+## CLI reference
+
+Flags useful for subprocess delegation with `gemini -p`:
+
+| Flag | Description |
+| ---- | ----------- |
+| `--model <name>` | Model to use |
+| `-p, --prompt` | Non-interactive mode (required for subprocess use) |
+| `--sandbox` | Run in a sandboxed environment |
+| `-y, --yolo` | Auto-approve all actions |
+| `--approval-mode <mode>` | Approval mode: `default`, `auto_edit`, `yolo`, `plan` |
+| `--allowed-tools <tools>` | Tools allowed without confirmation |
+| `-o, --output-format <fmt>` | Output format: `text`, `json`, `stream-json` |
+| `--include-directories <dirs>` | Additional workspace directories |
+| `-e, --extensions <exts>` | Select extensions to load |
+| `-r, --resume` | Resume a previous session |
+
 ## Writing the task prompt
 
 A good task prompt includes:
@@ -56,6 +73,15 @@ A good task prompt includes:
 
 ```bash
 gemini -p "<task>"
+
+# With model selection
+gemini -p --model gemini-2.5-pro "<task>"
+
+# Auto-approve all actions
+gemini -p --yolo "<task>"
+
+# JSON output format
+gemini -p --output-format json "<task>"
 ```
 
 ### Isolated execution with git worktrees
