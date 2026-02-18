@@ -54,6 +54,15 @@
       "skills": ["./"]
     },
     {
+      "name": "contextual-investigator",
+      "version": "0.0.1",
+      "description": "Generates a thorough, read-only investigative report when analyzing bugs, unclear behavior, architectural confusion, or unexpected system states. Use when diagnosing issues or understanding complex code paths. Do NOT use for implementing fixes or making code changes.",
+      "author": { "name": "EPICBADTIMING" },
+      "source": "./skills/investigate",
+      "category": "analysis",
+      "skills": ["./"]
+    },
+    {
       "name": "release-notes",
       "version": "0.0.1",
       "description": "Generate release notes for a given release.",

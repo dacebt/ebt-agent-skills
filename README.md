@@ -26,6 +26,7 @@ Before installing, confirm:
 | **codex-subagent** | Delegate self-contained subtasks to Codex CLI via `codex exec` (with optional `--full-auto`). |
 | **cursor-subagent** | Delegate self-contained subtasks to Cursor Agent via `cursor-agent chat`. |
 | **gemini-subagent** | Delegate self-contained subtasks to Gemini CLI via `gemini -p`. |
+| **contextual-investigator** | Generates a thorough, read-only investigative report when analyzing bugs, unclear behavior, architectural confusion, or unexpected system states. |
 | **release-notes** | Generate release notes from git history. Produces a technical changelog with commit references and a user-facing changelog in plain language. |
 
 ## Installation
