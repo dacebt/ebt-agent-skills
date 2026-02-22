@@ -1,11 +1,9 @@
 ---
-
 name: cleanup-review
 description: >
   Review changed or staged code for cleanup-grade issues within the diff boundary.
   Use before commit/PR or when reviewing a diff. Reports findings only.
-
----------------------------------------------------------------------
+---
 
 [BOUNDARY]
 No edits. No patches. No file changes.

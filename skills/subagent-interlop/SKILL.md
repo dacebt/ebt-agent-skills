@@ -1,11 +1,9 @@
 ---
-
 name: subagent-interop
 description: >
 Reference for invoking provider CLIs as subprocess agents (Claude Code, Codex CLI, Cursor Agent, Gemini CLI).
 Use to look up the command + flags for a chosen provider.
----------------------------------------------------------
-
+---
 # Shadow Clone Protocol
 
 [PROVIDER_SELECTION]
