@@ -21,13 +21,10 @@ Before installing, confirm:
 
 | Skill | Description |
 |---|---|
-| **cleanup-review** | Structural code review for redundancy, dead code, and convention violations. Read-only by default. |
-| **claude-subagent** | Delegate self-contained subtasks to Claude Code via `claude -p`. |
-| **codex-subagent** | Delegate self-contained subtasks to Codex CLI via `codex exec` (with optional `--full-auto`). |
-| **cursor-subagent** | Delegate self-contained subtasks to Cursor Agent via `cursor-agent chat`. |
-| **gemini-subagent** | Delegate self-contained subtasks to Gemini CLI via `gemini -p`. |
-| **contextual-investigator** | Generates a thorough, read-only investigative report when analyzing bugs, unclear behavior, architectural confusion, or unexpected system states. |
-| **release-notes** | Generate release notes from git history. Produces a technical changelog with commit references and a user-facing changelog in plain language. |
+| **review** | Review changed or staged code for cleanup-grade issues within the diff boundary. Use before commit/PR or when reviewing a diff. Reports findings only. |
+| **investigate** | Generates a thorough, read-only investigative report when analyzing bugs, unclear behavior, architectural confusion, or unexpected system states. Use when diagnosing issues or understanding complex code paths. |
+| **release-notes** | Generate release notes from git history. Produces a technical changelog with commit references and a user-facing changelog in plain language. Use when preparing a release or when asked for a changelog or release summary. |
+| **subagent-interlop** | Reference for invoking provider CLIs as subprocess agents (Claude Code, Codex CLI, Cursor Agent, Gemini CLI). Use to look up the command and flags for a chosen provider. |
 
 ## Installation
 
@@ -123,7 +120,7 @@ Codex CLI has a **built-in skill installer** and an official skills catalog host
 **Install via the built-in installer (inside a Codex session):**
 ```bash
 # Install a curated skill by name
-$skill-installer install cleanup-review
+$skill-installer install review
 
 # Install an experimental skill by path or URL
 $skill-installer install https://github.com/openai/skills/tree/main/skills/.experimental/create-plan
@@ -191,8 +188,8 @@ gemini extensions install https://github.com/<owner>/<extension-repo>
 **In-session management:**
 ```bash
 /skills list                          # List discovered skills
-/skills enable cleanup-review         # Enable a skill
-/skills disable claude-subagent       # Disable a skill
+/skills enable review                 # Enable a skill
+/skills disable subagent-interlop     # Disable a skill
 /skills reload                        # Reload after installing new skills
 ```
 
@@ -266,7 +263,7 @@ description: >
 # Instructions the agent follows when the skill is activated.
 ```
 
-The `name` becomes the slash command (e.g., `/cleanup-review`). The `description` is what agents use to decide when to load the skill automatically — keep it precise.
+The `name` becomes the slash command (e.g., `/review`). The `description` is what agents use to decide when to load the skill automatically — keep it precise.
 
 Optional supporting directories:
 ```
