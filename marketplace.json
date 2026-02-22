@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "ebt-agent-skills",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Custom agent skills for code review, cleanup, and collaboration workflows.",
   "owner": {
     "name": "EPICBADTIMING",
@@ -9,67 +9,43 @@
   },
   "plugins": [
     {
-      "name": "cleanup-review",
-      "version": "0.0.1",
+      "name": "review",
+      "version": "0.0.2",
       "description": "Review changed or staged code for structural cleanup: redundancy, dead code, rule violations, and low-value noise. Use when reviewing diffs, PRs, or modified files before commit. Reports findings only — does not apply changes unless explicitly instructed.",
-      "author": { "name": "EPICBADTIMING" },
-      "source": "./skills/cleanup-review",
+      "author": {
+        "name": "EPICBADTIMING"
+      },
+      "source": "./skills/review",
       "category": "code-quality",
-      "skills": ["./"]
+      "skills": [
+        "./"
+      ]
     },
     {
-      "name": "claude-subagent",
-      "version": "0.0.2",
-      "description": "Delegate self-contained subtasks to Claude Code via CLI for isolated execution, parallel work, and second-opinion analysis.",
-      "author": { "name": "EPICBADTIMING" },
-      "source": "./skills/claude-subagent",
-      "category": "productivity",
-      "skills": ["./"]
-    },
-    {
-      "name": "codex-subagent",
-      "version": "0.0.2",
-      "description": "Delegate self-contained subtasks to Codex CLI via subprocess execution (`codex exec` with optional `--full-auto`).",
-      "author": { "name": "EPICBADTIMING" },
-      "source": "./skills/codex-subagent",
-      "category": "productivity",
-      "skills": ["./"]
-    },
-    {
-      "name": "cursor-subagent",
-      "version": "0.0.2",
-      "description": "Delegate self-contained subtasks to Cursor Agent via CLI (`cursor-agent chat`) for isolated and parallel execution.",
-      "author": { "name": "EPICBADTIMING" },
-      "source": "./skills/cursor-subagent",
-      "category": "productivity",
-      "skills": ["./"]
-    },
-    {
-      "name": "gemini-subagent",
-      "version": "0.0.2",
-      "description": "Delegate self-contained subtasks to Gemini CLI via CLI prompt execution for isolated and parallel execution.",
-      "author": { "name": "EPICBADTIMING" },
-      "source": "./skills/gemini-subagent",
-      "category": "productivity",
-      "skills": ["./"]
-    },
-    {
-      "name": "contextual-investigator",
-      "version": "0.0.1",
+      "name": "investigate",
+      "version": "0.0.3",
       "description": "Generates a thorough, read-only investigative report when analyzing bugs, unclear behavior, architectural confusion, or unexpected system states. Use when diagnosing issues or understanding complex code paths. Do NOT use for implementing fixes or making code changes.",
-      "author": { "name": "EPICBADTIMING" },
+      "author": {
+        "name": "EPICBADTIMING"
+      },
       "source": "./skills/investigate",
       "category": "analysis",
-      "skills": ["./"]
+      "skills": [
+        "./"
+      ]
     },
     {
       "name": "release-notes",
       "version": "0.0.1",
       "description": "Generate release notes for a given release.",
-      "author": { "name": "EPICBADTIMING" },
+      "author": {
+        "name": "EPICBADTIMING"
+      },
       "source": "./skills/release-notes",
       "category": "productivity",
-      "skills": ["./"]
+      "skills": [
+        "./"
+      ]
     }
   ]
 }
